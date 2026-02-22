@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Amrita Shrivastava – Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal: #2ab3a3; --teal-dark: #1e9487; --dark: #1a1a2e;
+      --text: #2d2d2d; --muted: #6b7280; --light-bg: #f9fafb;
+      --border: #e5e7eb; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Manrope', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 60px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 20px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); font-weight: 600; }
+    .nav-resume {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--teal); color: white; padding: 9px 20px;
+      border-radius: 8px; font-size: 14px; font-weight: 600;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .nav-resume:hover { background: var(--teal-dark); }
+
+    /* SECTIONS */
+    section { min-height: 100vh; padding: 60px 48px 80px; display: flex; flex-direction: column; }
+    .section-title { font-size: 42px; font-weight: 800; color: var(--dark); text-align: center; margin-bottom: 12px; }
+    .section-line { width: 60px; height: 3px; background: var(--teal); margin: 0 auto 56px; border-radius: 2px; }
+
+    /* HOME */
+    #home { align-items: center; justify-content: center; text-align: center; padding-top: 120px; }
+    .home-name {
+      font-size: clamp(48px, 6vw, 82px); font-weight: 800; color: var(--dark);
+      letter-spacing: -2px; line-height: 1.05; margin-bottom: 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+    .home-tagline { font-size: 18px; color: var(--muted); margin-bottom: 40px; animation: fadeUp 0.8s 0.15s ease both; }
+    .home-tagline span { color: var(--teal); font-weight: 600; }
+    .social-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; animation: fadeUp 0.8s 0.3s ease both; }
+    .social-links a {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 18px; text-decoration: none;
+      background: var(--white);
+      transition: border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .social-links a:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(42,179,163,0.15); }
+    .social-links a svg { display: block; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ABOUT */
+    #about { justify-content: center; background: var(--white); }
+    .about-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-text p { font-size: 16px; line-height: 1.9; color: #444; margin-bottom: 20px; }
+    .about-illustration { display: flex; justify-content: center; align-items: center; }
+    .about-illustration svg { width: 100%; max-width: 420px; }
+
+    /* SKILLS */
+    #skills { background: var(--light-bg); justify-content: flex-start; padding-top: 80px; }
+    .skills-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+    .skills-subtitle { text-align: center; color: var(--muted); font-size: 16px; margin-bottom: 4px; margin-top: -36px; }
+    .skill-group { margin-bottom: 52px; }
+    .skill-group-title { font-size: 18px; font-weight: 700; color: var(--dark); text-align: center; margin-bottom: 28px; }
+    .skill-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; }
+    .skill-icon { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 80px; }
+    .skill-icon img { width: 52px; height: 52px; object-fit: contain; transition: transform 0.2s; }
+    .skill-icon:hover img { transform: translateY(-4px); }
+    .skill-icon span { font-size: 12px; color: var(--muted); text-align: center; font-weight: 500; }
+
+    /* EDUCATION & EXPERIENCE */
+    #education { background: var(--white); justify-content: flex-start; padding-top: 100px; }
+    #experience { background: var(--light-bg); justify-content: flex-start; padding-top: 100px; }
+    .edu-inner, .exp-inner { max-width: 800px; margin: 0 auto; width: 100%; }
+    .timeline { position: relative; }
+    .timeline-item { display: grid; grid-template-columns: 145px 1fr; gap: 0; margin-bottom: 32px; }
+    .timeline-left { display: flex; flex-direction: column; align-items: flex-end; position: relative; }
+    .timeline-badge { background: var(--teal); color: white; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; white-space: nowrap; }
+    .timeline-line { width: 1px; background: #d1d5db; flex: 1; margin: 4px auto 0; min-height: 60px; }
+    .timeline-card { margin-left: 24px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; }
+    .timeline-card h3 { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .timeline-card .company { color: var(--teal); font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+    .timeline-card .location { color: var(--muted); font-size: 13px; }
+    .timeline-card ul { padding-left: 0; list-style: none; }
+    .timeline-card ul li { font-size: 14px; color: #555; line-height: 1.7; padding-left: 18px; position: relative; margin-bottom: 6px; }
+    .timeline-card ul li::before { content: ''; position: absolute; left: 0; top: 9px; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+
+    /* PROJECTS */
+    #projects { background: var(--white); justify-content: flex-start; padding-top: 100px; align-items: unset; text-align: unset; }
+    .projects-inner { max-width: 600px; margin: 0 auto; width: 100%; }
+    .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px 32px; transition: box-shadow 0.25s, transform 0.25s; }
+    .project-card:hover { box-shadow: 0 8px 28px rgba(42,179,163,0.1); transform: translateY(-2px); }
+    .project-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .project-title { font-size: 18px; font-weight: 700; color: var(--dark); }
+    .project-github-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--dark); color: white; font-size: 13px; font-weight: 600;
+      padding: 6px 14px; border-radius: 20px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .project-github-btn:hover { background: #333; transform: translateY(-1px); }
+    .project-desc { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 20px; }
+    .projects-link { display: inline-flex; align-items: center; gap: 10px; color: var(--teal); text-decoration: underline; font-size: 15px; font-weight: 600; transition: color 0.2s; }
+    .projects-link:hover { color: var(--teal-dark); }
+
+    /* ACHIEVEMENTS */
+    #achievements { background: var(--light-bg); justify-content: flex-start; padding-top: 100px; }
+    .achievements-inner { max-width: 900px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .achievement-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px 30px; transition: box-shadow 0.25s, transform 0.25s; }
+    .achievement-card:hover { box-shadow: 0 8px 28px rgba(42,179,163,0.12); transform: translateY(-3px); }
+    .achievement-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .achievement-icon { font-size: 24px; background: #e8f7f6; width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .achievement-card-header h3 { font-size: 16px; font-weight: 700; color: var(--dark); line-height: 1.3; }
+    .achievement-list { list-style: none; padding: 0; margin: 0; }
+    .achievement-list li { font-size: 14px; color: #555; line-height: 1.75; padding-left: 16px; position: relative; margin-bottom: 8px; }
+    .achievement-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); opacity: 0.7; }
+    .achievement-list li strong { color: var(--dark); font-weight: 600; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 24px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px 60px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-illustration { display: none; }
+      .timeline-item { grid-template-columns: 110px 1fr; }
+      .achievements-inner { grid-template-columns: 1fr; }
+      .home-name { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AS</div>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+  </ul>
+  <a href="https://drive.google.com/file/d/1e3Bzc_uSLiNS1S-Ob_HptlSsvn5z_hGz/view?usp=sharing" target="_blank" class="nav-resume">
+    <i class="fa-regular fa-file"></i> Resume
+  </a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <h1 class="home-name">Amrita Shrivastava</h1>
+  <p class="home-tagline">
+    Passionate about <span>clean architecture</span>, <span>problem-solving</span>, and <span>creativity</span>.
+  </p>
+  <div class="social-links">
+    <a href="https://github.com/amrxtaa" target="_blank" title="GitHub">
+      <i class="fa-brands fa-github"></i>
+    </a>
+    <a href="https://linkedin.com/in/amrxtaa" target="_blank" title="LinkedIn">
+      <i class="fa-brands fa-linkedin-in"></i>
+    </a>
+    <a href="https://leetcode.com/amrxtaa" target="_blank" title="LeetCode">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/>
+      </svg>
+    </a>
+    <a href="mailto:amritashrivastava1214@gmail.com" title="Gmail">
+      <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.909 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" fill="#EA4335"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Hi. I'm Amrita Shrivastava. I'm a Software Engineer specializing in Java, Spring Boot, and scalable backend development. I enjoy learning new technologies and exploring different areas of Computer Science.</p>
+        <p>Currently, I am working with microservices, Java-based financial systems, and exploring Machine Learning and Deep Learning. I love building backend applications and experimenting with AI models to understand how systems behave under real-world scenarios.</p>
+        <p>I also enjoy writing, photography, and building mini-projects in my free time, many of which are available on my GitHub. Creativity and learning drive me every day.</p>
+      </div>
+      <div class="about-illustration">
+        <svg viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="280" width="300" height="14" rx="4" fill="#c5d4e0"/>
+          <rect x="90" y="294" width="14" height="60" rx="4" fill="#a0b4c0"/>
+          <rect x="296" y="294" width="14" height="60" rx="4" fill="#a0b4c0"/>
+          <rect x="150" y="310" width="100" height="10" rx="4" fill="#b0c4d0"/>
+          <rect x="195" y="320" width="10" height="40" rx="3" fill="#a0b4c0"/>
+          <rect x="130" y="210" width="170" height="100" rx="8" fill="#d6e4ee"/>
+          <rect x="137" y="218" width="156" height="82" rx="4" fill="#e8f4fb"/>
+          <rect x="137" y="218" width="156" height="82" rx="4" fill="url(#screenGlow)" opacity="0.4"/>
+          <rect x="110" y="308" width="210" height="10" rx="4" fill="#b0c8d8"/>
+          <rect x="320" y="265" width="24" height="28" rx="4" fill="#e5e7eb"/>
+          <path d="M344 274 Q358 274 358 283 Q358 292 344 292" stroke="#d1d5db" stroke-width="2" fill="none"/>
+          <ellipse cx="200" cy="360" rx="55" ry="20" fill="#cfe3ef" opacity="0.5"/>
+          <rect x="168" y="240" width="64" height="80" rx="12" fill="#e8f0f7"/>
+          <ellipse cx="200" cy="200" rx="34" ry="36" fill="#f3c5a0"/>
+          <path d="M168 196 Q168 152 200 152 Q232 152 232 196" fill="#2d2d2d"/>
+          <path d="M232 196 Q240 220 230 240 Q218 255 210 250" fill="#2d2d2d"/>
+          <ellipse cx="190" cy="204" rx="3.5" ry="4" fill="#8B6350"/>
+          <ellipse cx="210" cy="204" rx="3.5" ry="4" fill="#8B6350"/>
+          <path d="M192 218 Q200 224 208 218" stroke="#c0785a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M168 260 Q148 270 140 288" stroke="#f3c5a0" stroke-width="18" stroke-linecap="round"/>
+          <path d="M232 260 Q252 270 268 288" stroke="#f3c5a0" stroke-width="18" stroke-linecap="round"/>
+          <ellipse cx="145" cy="292" rx="12" ry="8" fill="#f3c5a0"/>
+          <ellipse cx="265" cy="292" rx="12" ry="8" fill="#f3c5a0"/>
+          <defs>
+            <linearGradient id="screenGlow" x1="137" y1="218" x2="293" y2="300" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#2ab3a3"/>
+              <stop offset="100%" stop-color="#ffffff"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="section-title" style="margin-top:20px">Skills</h2>
+  <p class="skills-subtitle">I keep experimenting with and learning technologies. These are some of the major languages,<br>technologies, tools, and platforms I have worked with:</p>
+  <div class="section-line" style="margin-top:16px"></div>
+  <div class="skills-inner">
+    <div class="skill-group">
+      <h3 class="skill-group-title">Languages &amp; Databases</h3>
+      <div class="skill-icons">
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"/><span>Java</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"/><span>Python</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"/><span>JavaScript</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"/><span>PostgreSQL</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB"/><span>MongoDB</span></div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3 class="skill-group-title">Frameworks &amp; Technologies</h3>
+      <div class="skill-icons">
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot"/><span>Spring Boot</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"/><span>Node.js</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS"/><span>AWS</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow"/><span>TensorFlow</span></div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <h3 class="skill-group-title">Tools &amp; Platforms</h3>
+      <div class="skill-icons">
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"/><span>Git</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"/><span>GitHub</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" alt="Maven"/><span>Maven</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman"/><span>Postman</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"/><span>Docker</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"/><span>Kubernetes</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" alt="IntelliJ"/><span>IntelliJ</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code"/><span>VS Code</span></div>
+        <div class="skill-icon"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"/><span>Linux</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <h2 class="section-title">Education</h2>
+  <div class="section-line"></div>
+  <div class="edu-inner">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">2019 – 2023</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>Bachelor of Technology, Information Technology</h3>
+          <p class="company">Rajiv Gandhi Proudyogiki Vishwavidyalaya</p>
+          <p class="location">Bhopal, India</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">2019</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>ISC (Indian School Certificate Examination)</h3>
+          <p class="company">Mount Carmel School, CISCE Board</p>
+          <p class="location">Bhopal, India</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="section-title">Experience</h2>
+  <div class="section-line"></div>
+  <div class="exp-inner">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">Sep 2024 – Present</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>Software Engineer, Associate</h3>
+          <p class="company">Infor</p>
+          <ul>
+            <li>Developed RESTful microservices using Java, Spring Boot, Hibernate, SQL/NoSQL.</li>
+            <li>Integrated Lease &amp; Project modules within FSM, reducing manual effort by 75%.</li>
+            <li>Optimized backend workflows, improving accuracy and performance.</li>
+            <li>Collaborated with QA, DevOps, Product teams, and delivered sprint demos.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">Dec 2023 – May 2024</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>Analyst / Software Engineer</h3>
+          <p class="company">Capgemini</p>
+          <ul>
+            <li>Completed intensive training in Java, DSA, PostgreSQL, AWS, Docker.</li>
+            <li>Built a Spring Boot + MySQL Book Inventory system.</li>
+            <li>Dockerized, deployed, and optimized backend components.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">Jul 2023 – Dec 2023</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>Trainee</h3>
+          <p class="company">Tata Consultancy Services</p>
+          <ul>
+            <li>Gained experience with CSS, HTML, and basic backend concepts.</li>
+            <li>Improved UI fundamentals and analytical thinking.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-left"><div class="timeline-badge">Apr 2023 – Jun 2023</div><div class="timeline-line"></div></div>
+        <div class="timeline-card">
+          <h3>Foundation Trainee</h3>
+          <p class="company">DXC Technology</p>
+          <ul>
+            <li>Completed foundational training in enterprise software and development practices.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="section-line"></div>
+  <div class="projects-inner">
+    <div class="project-card">
+      <div class="project-card-top">
+        <h3 class="project-title">My Projects</h3>
+        <a href="https://github.com/amrxtaa" target="_blank" class="project-github-btn">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+      </div>
+      <p class="project-desc">Explore all my projects, experiments, and open-source work on GitHub. From backend microservices to machine learning experiments.</p>
+      <a href="https://github.com/amrxtaa" target="_blank" class="projects-link">
+        <i class="fa-brands fa-github"></i> View all projects here
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <h2 class="section-title">Achievements</h2>
+  <div class="section-line"></div>
+  <div class="achievements-inner">
+
+    <div class="achievement-card">
+      <div class="achievement-card-header">
+        <span class="achievement-icon">🧠</span>
+        <h3>Coding &amp; Problem-Solving</h3>
+      </div>
+      <ul class="achievement-list">
+        <li>Solved <strong>300+ LeetCode questions</strong>, strengthening DSA, algorithms, and analytical thinking.</li>
+        <li>Earned <strong>5★ in Problem Solving</strong> on HackerRank.</li>
+        <li>Achieved <strong>4★ in SQL</strong> on HackerRank.</li>
+      </ul>
+    </div>
+
+    <div class="achievement-card">
+      <div class="achievement-card-header">
+        <span class="achievement-icon">📜</span>
+        <h3>Certifications</h3>
+      </div>
+      <ul class="achievement-list">
+        <li><strong>Ultimate AWS Certified Cloud Practitioner (CLF-C02)</strong> — Udemy, 2024</li>
+        <li><strong>Software Engineer – Java Cloud Native (Grade A4)</strong> — Ocean Capgemini, 2024</li>
+        <li><strong>Complete A.I. &amp; Machine Learning, Data Science Bootcamp</strong> — Udemy, 2026</li>
+      </ul>
+    </div>
+
+    <div class="achievement-card">
+      <div class="achievement-card-header">
+        <span class="achievement-icon">🏆</span>
+        <h3>Technical &amp; Academic Achievements</h3>
+      </div>
+      <ul class="achievement-list">
+        <li>Secured <strong>3rd place in the Techno Project Competition</strong>, demonstrating strong technical execution, creativity, and presentation skills.</li>
+        <li>Hosted and organized multiple technical events at school and college levels, including tech quizzes, coding rounds, and project showcases.</li>
+        <li>Participated in several hackathons, coding contests, and technical challenges that improved problem-solving speed and teamwork.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2024 Amrita Shrivastava. Built with ❤️
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
