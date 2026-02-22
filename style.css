@@ -200,7 +200,7 @@ section {
 #skills {
   background: var(--light-bg);
   justify-content: flex-start;
-  padding-top: 100px;
+  padding-top: 150px;
 }
 
 .skills-inner {
